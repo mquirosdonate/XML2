@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <TextView android:id="@+id/textview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Get File Name From SDCard"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp" />
+    <LinearLayout android:id="@+id/relativeLayout1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_width="fill_parent">
+        <Button android:text="Buscar"
+            android:id="@+id/skipButton"
+            android:textSize="18dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+        </Button>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Path">
+        </TextView>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/FileName">
+        </TextView>
+    </LinearLayout>
+</LinearLayout>
