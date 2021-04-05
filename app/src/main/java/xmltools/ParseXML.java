@@ -278,6 +278,7 @@ public class ParseXML {
         OutputStreamWriter fout = null;
         String path = "";
         String nameFile = "";
+
         try {
             File file = new File(mFileXML);
             path = file.getParent();
