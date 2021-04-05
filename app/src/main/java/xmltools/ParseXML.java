@@ -92,7 +92,7 @@ public class ParseXML {
                         .replace("<","&lt;")
                         .replace(">","&gt;")
                         .replace("\"","&quot;")
-                        .replace("\'","&apos;");
+                        .replace("'","&apos;");
                 //ELIMINAMOS UN ATRIBUTO DEL NODO RAIZ
                 if (nombreAtributo.compareTo("xmlns:esri_wms") == 0 &&
                         valorAtributo.compareTo("http://www.esri.com/wms") == 0)
@@ -270,6 +270,11 @@ public class ParseXML {
         return xml.toString();
     }
     public  String writeXML(){
+        String salida = xml.toString().
+                replace("AM.SensitiveArea.Default.Point","AM.SensitiveArea.Default").
+                replace("AM.FloodUnitOfManagement.Default.Polygon","AM.FloodUnitOfManagement.Default");
+
+
         OutputStreamWriter fout = null;
         String path = "";
         String nameFile = "";
@@ -280,7 +285,7 @@ public class ParseXML {
             nameFile = "_" + nameFile;
             file = new File(path,nameFile);
             fout = new OutputStreamWriter(new FileOutputStream(file, false));
-            fout.write(xml.toString());
+            fout.write(salida);
             fout.flush();
             fout.close();
         }catch (Exception e){return "???";}
