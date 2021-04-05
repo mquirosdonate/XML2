@@ -19,7 +19,8 @@ public class FileArrayAdapter  extends ArrayAdapter<Item> {
     private Context c;
     private int id;
     private List<Item> items;
-    public FileArrayAdapter(Context context, int textViewResourceId,List<Item> objects) {
+
+    public FileArrayAdapter(Context context, int textViewResourceId, List<Item> objects) {
         super(context, textViewResourceId, objects);
         c = context;
         id = textViewResourceId;
@@ -31,22 +32,16 @@ public class FileArrayAdapter  extends ArrayAdapter<Item> {
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = convertView;
-        if (v == null) {
-            LayoutInflater vi = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(id, null);
-        }
-
-        /* create a new view of my layout and inflate it in the row */
-        //convertView = ( RelativeLayout ) inflater.inflate( resource, null );
+        LayoutInflater inflater = LayoutInflater.from(c);
+        View view = inflater.inflate(R.layout.list_files, null,false);
 
         final Item o = items.get(position);
         if (o != null) {
-            TextView t1 = (TextView) v.findViewById(R.id.TextView01);
-            TextView t2 = (TextView) v.findViewById(R.id.TextView02);
-            TextView t3 = (TextView) v.findViewById(R.id.TextViewDate);
+            TextView t1 = view.findViewById(R.id.TextViewItem);
+            TextView t2 = view.findViewById(R.id.TextView02);
+            TextView t3 = view.findViewById(R.id.TextViewDate);
             /* Take the ImageView from layout and set the city's image */
-            ImageView imageCity = (ImageView) v.findViewById(R.id.fd_Icon1);
+            ImageView imageCity = view.findViewById(R.id.fd_Icon1);
             String uri = "drawable/" + o.getImage();
             int imageResource = c.getResources().getIdentifier(uri, null, c.getPackageName());
             Drawable image = c.getResources().getDrawable(imageResource);
@@ -59,6 +54,6 @@ public class FileArrayAdapter  extends ArrayAdapter<Item> {
             if(t3!=null)
                 t3.setText(o.getDate());
         }
-        return v;
+        return view;
     }
 }
