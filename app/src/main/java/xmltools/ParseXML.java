@@ -271,6 +271,7 @@ public class ParseXML {
     }
     public  String writeXML(){
         String salida = xml.toString().
+                replace("Jander","Klander").
                 replace("AM.SensitiveArea.Default.Point","AM.SensitiveArea.Default").
                 replace("AM.NitrateVulnerableZone.Default.Polygon","AM.NitrateVulnerableZone.Default").
                 replace("AM.FloodUnitOfManagement.Default.Polygon","AM.FloodUnitOfManagement.Default");
