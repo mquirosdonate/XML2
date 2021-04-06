@@ -271,10 +271,65 @@ public class ParseXML {
     }
     public  String writeXML(){
         String salida = xml.toString().
-                replace("Jander","Klander").
-                replace("AM.SensitiveArea.Default.Point","AM.SensitiveArea.Default").
+                replace("AM.FloodUnitOfManagement.Default.Polygon","AM.FloodUnitOfManagement.Default").
+                replace("AM.FloodUnitOfManagement.Default.Line","AM.FloodUnitOfManagement.Default").
                 replace("AM.NitrateVulnerableZone.Default.Polygon","AM.NitrateVulnerableZone.Default").
-                replace("AM.FloodUnitOfManagement.Default.Polygon","AM.FloodUnitOfManagement.Default");
+                replace("AM.RiverBasinDistrict.Default.Polygon","AM.RiverBasinDistrict.Default").
+                replace("AM.SensitiveArea.Default.Polygon","AM.SensitiveArea.Default").
+                replace("AM.SensitiveArea.Default.Line","AM.SensitiveArea.Default").
+                replace("AM.SensitiveArea.Default.Point","AM.SensitiveArea.Default").
+                replace("AM.WaterBodyForWFD.Default.Point","AM.WaterBodyForWFD.Default").
+                replace("AM.WaterBodyForWFD.Default.Polygon","AM.WaterBodyForWFD.Default").
+                replace("AM.WaterBodyForWFD.Default.Line","AM.WaterBodyForWFD.Default").
+                replace("EF.EnvironmentalMonitoringFacilities.Default.Point","EF.EnvironmentalMonitoringFacilities.Default").
+                replace("EF.EnvironmentalMonitoringFacilities.Default.Polygon","EF.EnvironmentalMonitoringFacilities.Default").
+                replace("GE.GroundWaterBody.Default.Polygon","GE.GroundWaterBody").
+                replace("HH.HealthStatisticalData.RiesgoPob.Polygon","HH.HealthStatisticalData.Default").
+                replace("HY.PhysicalWaters.Catchments.Default.RiverBasin","HY.PhysicalWaters.Catchments.Default").
+                replace("HY.PhysicalWaters.Catchments.Default.DrainageBasin","HY.PhysicalWaters.Catchments.Default").
+                replace("HY.PhysicalWaters.ManMadeObject.Default.DamOrWeir","HY.PhysicalWaters.ManMadeObject.Default").
+                replace("HY.PhysicalWaters.ManMadeObject.Default.bridge","HY.PhysicalWaters.ManMadeObject.Default").
+                replace("HY.PhysicalWaters.Waterbodies.Default.Polygon","HY.PhysicalWaters.Waterbodies.Default").
+                replace("HY.PhysicalWaters.Waterbodies.Default.Polyline","HY.PhysicalWaters.Waterbodies.Default").
+                replace("HY.PhysicalWaters.Waterbodies.Man.Made.ShoreLineConstruction","HY.PhysicalWaters.ManMadeObject.Default").
+                replace("NZ.ExposedElement.Default.Point","NZ.ExposedElement").
+                replace("NZ.ExposedElement.Default.Polygon","NZ.ExposedElement").
+                replace("NZ.RiskZone.RiesgoAct","NZ.RiskZone").
+                replace("NZ.RiskZone.RiesgoPob","NZ.RiskZone").
+                replace("NZ.RiskZone.ARPSIS.Line","NZ.RiskZone").
+                replace("NZ.RiskZone.Default.Q100","NZ.RiskZone").
+                replace("NZ.RiskZone.Default.Q50","NZ.RiskZone").
+                replace("NZ.RiskZone.Default.Q500","NZ.RiskZone").
+                replace("NZ.RiskZone.Default.NormasExplotacion","NZ.RiskZone").
+                replace("PS.ProtectedSite.Default.Polygon","PS.ProtectedSite.Default").
+                replace("PS.ProtectedSite.Default.Point","PS.ProtectedSite.Default").
+                replace("PS.ProtectedSite.Default.Line","PS.ProtectedSite.Default").
+                replace("US.EnvironmentalManagementInstallation.Default.Point","US.EnvironmentalManagementInstallation.Default").
+                replace("EF.EnvironmentalMonitoringNetworks.Default.Point","EF.EnvironmentalMonitoringNetwork.Default").
+                replace("BU.Building.Default.Point","BU.Building.default").
+                replace("PF.ProductionFacility.Default.Polygon","PF.ProductionFacility").
+                replace("PF.ProductionSite.Default.Polygon","PF.ProductionSite").
+                replace("AM.ForestManagementArea.Default.Polygon","AM.ForestManagementArea.Default").
+                replace("BR.Bio-geographicalRegion.Natura2000AndEmerald.Default.Polygon","BR.Bio-geographicalRegion.Natura2000AndEmerald").
+                replace("NZ.HazardArea.ErosionEolica","NZ.HazardArea").
+                replace("NZ.HazardArea.Erosion","NZ.HazardArea").
+                replace("NZ.HazardArea.MovimientosMasa","NZ.HazardArea").
+                replace("NZ.HazardArea.ErosionCauces","NZ.HazardArea").
+                replace("NZ.ObservedEvent.Default.Polygon","NZ.ObservedEvent").
+                replace("AM.CoastalZoneManagementArea.Default.Line","AM.CoastalZoneManagementArea.Default").
+                replace("AM.CoastalZoneManagementArea.Default.Polygon","AM.CoastalZoneManagementArea.Default").
+                replace("EF.EnvironmentalMonitoringFacilities.Default.Curve","AM.CoastalZoneManagementArea.Default").
+                replace("EF.EnvironmentalMonitoringFacilities.Default.point","AM.CoastalZoneManagementArea.Default").
+                replace("AM.MarineRegion.Default.Polygon","AM.MarineRegion.Default").
+                replace("LU.ExistingLandUse.Default.Polygon","LandUse.ExistingLandUse.Default").
+                replace("AF.Site.Default.Point","AF.Site").
+                replace("AF.Site.Default.Polygon","AF.Site").
+                replace("AU.AdministrativeUnit.Default.Polygon","AU.AdministrativeUnit.Default").
+                replace("AM.AirQualityManagementZone.Default.Polygon","AM.AirQualityManagementZone.Default").
+                replace("AM.NoiseRestrictionZone.Default.Line","AM.NoiseRestrictionZone.Default").
+                replace("AM.NoiseRestrictionZone.Default.Polygon","AM.NoiseRestrictionZone.Default").
+                replace("AM.NoiseRestrictionZone.Default.Polygon","AF.AquacultureHolding").
+                replace("AF.AquacultureHolding.Default.Point","AM.RiverBasinDistrict.Default");
 
         OutputStreamWriter fout = null;
         String path = "";
