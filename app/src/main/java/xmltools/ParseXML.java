@@ -318,8 +318,8 @@ public class ParseXML {
                 replace("NZ.ObservedEvent.Default.Polygon","NZ.ObservedEvent").
                 replace("AM.CoastalZoneManagementArea.Default.Line","AM.CoastalZoneManagementArea.Default").
                 replace("AM.CoastalZoneManagementArea.Default.Polygon","AM.CoastalZoneManagementArea.Default").
-                replace("EF.EnvironmentalMonitoringFacilities.Default.Curve","AM.CoastalZoneManagementArea.Default").
-                replace("EF.EnvironmentalMonitoringFacilities.Default.point","AM.CoastalZoneManagementArea.Default").
+                replace("EF.EnvironmentalMonitoringFacilities.Default.Curve","EF.EnvironmentalMonitoringFacilities.Default").
+                replace("EF.EnvironmentalMonitoringFacilities.Default.point","EF.EnvironmentalMonitoringFacilities.Default").
                 replace("AM.MarineRegion.Default.Polygon","AM.MarineRegion.Default").
                 replace("LU.ExistingLandUse.Default.Polygon","LandUse.ExistingLandUse.Default").
                 replace("AF.Site.Default.Point","AF.Site").
@@ -328,8 +328,7 @@ public class ParseXML {
                 replace("AM.AirQualityManagementZone.Default.Polygon","AM.AirQualityManagementZone.Default").
                 replace("AM.NoiseRestrictionZone.Default.Line","AM.NoiseRestrictionZone.Default").
                 replace("AM.NoiseRestrictionZone.Default.Polygon","AM.NoiseRestrictionZone.Default").
-                replace("AM.NoiseRestrictionZone.Default.Polygon","AF.AquacultureHolding").
-                replace("AF.AquacultureHolding.Default.Point","AM.RiverBasinDistrict.Default");
+                replace("AF.AquacultureHolding.Default.Point","AF.AquacultureHolding");
 
         OutputStreamWriter fout = null;
         String path = "";
