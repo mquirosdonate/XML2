@@ -39,44 +39,55 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtFileXMLSalida;
     private Button buscarXML;
     private File sdDir;
+    List<String> listaFicheros = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if(!checkAndRequestPermissions()) {
+        if(!checkAndRequestPermissions())
             return;
-        }
-        txtFileXML = (TextView)findViewById(R.id.fileXML);
-        txtFileXMLSalida = (EditText) findViewById(R.id.fileXMLSalida);
-        buscarXML = (Button) findViewById(R.id.BuscarXML);
+
+        txtFileXML = findViewById(R.id.fileXML);
+        txtFileXMLSalida = findViewById(R.id.fileXMLSalida);
+        buscarXML = findViewById(R.id.BuscarXML);
         buscarXML.setFocusableInTouchMode(true);
         buscarXML.requestFocus();
 
-        buscarXML.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buscarXML();
-                //String url = "http://www.mapama.es/ide/metadatos/srv/spa/csw?SERVICE=CSW&VERSION=2.0.2&REQUEST=GetRecordById&outputSchema=http://www.isotc211.org/2005/gmd&ElementSetName=full&ID=2602aafe-591d-4fa6-afb0-459d8f085209";
-                //getXML(url);
-            }
-        });
         //Crear la carpeta de la app para organizar archivos
         File sdCard = Environment.getExternalStorageDirectory();
         String nameApp = (String)this.getString(R.string.app_name);
         sdDir = new File(sdCard.getAbsolutePath() + "/" + nameApp);
         sdDir.mkdir();
-        buscarXMLs(sdDir);
-        txtFileXMLSalida.setText(listaFicheros.toString());
 
+        buscarXML.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listaFicheros.clear();
+                buscarXMLs(sdDir);
+
+                if (listaFicheros.size()>0)
+                    transformarXML(listaFicheros.get(0));
+            }
+        });
+        buscarXML.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                buscarXML();
+                return false;
+            }
+        });
     }
-    StringBuilder listaFicheros = new StringBuilder();
+    private void transformarXML(String fileName){
+        getNodeValue(fileName,"WMS_Capabilities/Capability/Layer/Layer/MetadataURL/OnlineResource","xlink:href");
+    }
+
     private void buscarXMLs(File f) {
         if (f == null) return;
         File[] dirs = f.listFiles();
         try {
             for (File ff : dirs) {
                 if (ff.getName().compareToIgnoreCase("130.xml")==0)
-                    listaFicheros.append(ff.getAbsolutePath()+"\n");
+                    listaFicheros.add(ff.getAbsolutePath()+"\n");
 
                 if (ff.isDirectory())
                     buscarXMLs(ff);
@@ -225,7 +236,13 @@ public class MainActivity extends AppCompatActivity {
 
                 p.recorreDOM(XML);
                 txtFileXML.setText(p.writeXML());
-                txtFileXMLSalida.setText(p.getXML());
+
+                txtFileXMLSalida.setText(txtFileXMLSalida.getText().toString()+listaFicheros.get(0)+"\n");
+
+                listaFicheros.remove(listaFicheros.size()-1);
+                if (listaFicheros.size()>0){
+                    transformarXML(listaFicheros.get(0));
+                }
             }
             @Override
             public void onFailure(int i, cz.msebera.android.httpclient.Header[] headers, byte[] bytes, Throwable throwable) {
