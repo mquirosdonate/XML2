@@ -25,6 +25,7 @@ import org.w3c.dom.Node;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +65,23 @@ public class MainActivity extends AppCompatActivity {
         String nameApp = (String)this.getString(R.string.app_name);
         sdDir = new File(sdCard.getAbsolutePath() + "/" + nameApp);
         sdDir.mkdir();
+        buscarXMLs(sdDir);
+        txtFileXMLSalida.setText(listaFicheros.toString());
 
+    }
+    StringBuilder listaFicheros = new StringBuilder();
+    private void buscarXMLs(File f) {
+        if (f == null) return;
+        File[] dirs = f.listFiles();
+        try {
+            for (File ff : dirs) {
+                if (ff.getName().compareToIgnoreCase("130.xml")==0)
+                    listaFicheros.append(ff.getAbsolutePath()+"\n");
+
+                if (ff.isDirectory())
+                    buscarXMLs(ff);
+            }
+        }catch (Exception e) { }
     }
     private static final int REQUEST_PATH = 1;
     private void buscarXML(){

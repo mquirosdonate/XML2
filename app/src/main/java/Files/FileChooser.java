@@ -57,8 +57,7 @@ public class FileChooser extends AppCompatActivity {
         List<Item> dir = new ArrayList<Item>();
         List<Item> fls = new ArrayList<Item>();
         try{
-            for(File ff: dirs)
-            {
+            for(File ff: dirs){
                 Date lastModDate = new Date(ff.lastModified());
                 DateFormat formater = DateFormat.getDateTimeInstance();
                 String date_modify = formater.format(lastModDate);
@@ -75,9 +74,7 @@ public class FileChooser extends AppCompatActivity {
 
                     //String formated = lastModDate.toString();
                     dir.add(new Item(ff.getName(),num_item,date_modify,ff.getAbsolutePath(),"directory_icon"));
-                }
-                else
-                {
+                } else {
                     fls.add(new Item(ff.getName(),ff.length() + " Byte", date_modify, ff.getAbsolutePath(),"file_icon"));
                 }
             }
