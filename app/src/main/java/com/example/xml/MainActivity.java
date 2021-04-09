@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtFileXMLSalida;
     private Button buscarXML;
     private File sdDir;
-    List<String> listaFicheros = new ArrayList<>();
+    static List<String> listaFicheros = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             for (File ff : dirs) {
                 if (ff.getName().compareToIgnoreCase("130.xml")==0)
-                    listaFicheros.add(ff.getAbsolutePath()+"\n");
+                    listaFicheros.add(ff.getAbsolutePath());
 
                 if (ff.isDirectory())
                     buscarXMLs(ff);
@@ -214,10 +214,15 @@ public class MainActivity extends AppCompatActivity {
                     if (nombreAtributo.compareTo(nodeName) == 0 ){
                         String href = valorAtributo;//.replace("amp;","");
                         getFileFromURL(href);
-                        break;
+                        return;
                     }
                 }
             }
+        }
+        //Si no hay un nodo de tipo path y nodeName que se le pasan saltamos al siguiente de la lista
+        listaFicheros.remove(0);
+        if (listaFicheros.size()>0){
+            transformarXML(listaFicheros.get(0));
         }
     }
 
@@ -239,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
                 txtFileXMLSalida.setText(txtFileXMLSalida.getText().toString()+listaFicheros.get(0)+"\n");
 
-                listaFicheros.remove(listaFicheros.size()-1);
+                listaFicheros.remove(0);
                 if (listaFicheros.size()>0){
                     transformarXML(listaFicheros.get(0));
                 }
