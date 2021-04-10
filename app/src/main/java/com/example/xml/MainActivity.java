@@ -24,6 +24,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -39,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtFileXMLSalida;
     private Button buscarXML;
     private File sdDir;
-    static List<String> listaFicheros = new ArrayList<>();
+    List<String> listaFicheros = new ArrayList<>();
+    static  StringBuilder informe = new StringBuilder();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +65,13 @@ public class MainActivity extends AppCompatActivity {
         buscarXML.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buscarXML.setVisibility(View.GONE);
+                txtFileXML.setText("Buscando ficheros 130.xml ...");
                 listaFicheros.clear();
+                informe.setLength(0);
                 buscarXMLs(sdDir);
-
-                if (listaFicheros.size()>0)
-                    transformarXML(listaFicheros.get(0));
+                informe.append("Encontrados: "+listaFicheros.size()+" ficheros 130.xml\n");
+                transformarXMLs();
             }
         });
         buscarXML.setOnLongClickListener(new View.OnLongClickListener() {
@@ -77,8 +82,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void transformarXML(String fileName){
-        getNodeValue(fileName,"WMS_Capabilities/Capability/Layer/Layer/MetadataURL/OnlineResource","xlink:href");
+    private void transformarXMLs(){
+        if (listaFicheros.size()>0) {
+            String fileName = listaFicheros.get(0);
+            listaFicheros.remove(0);
+            txtFileXML.setText(listaFicheros.size()+" "+fileName);
+            informe.append(fileName+"\n");
+            getNodeValue(fileName, "WMS_Capabilities/Capability/Layer/Layer/MetadataURL/OnlineResource", "xlink:href");
+        }else{
+
+            txtFileXML.setText("TRABAJO TERMINADO !!!");
+            txtFileXMLSalida.setText(informe.toString());
+            //Escribir informe en un fichero
+            try {
+                File file =  new File(sdDir,"informe.txt");
+                OutputStreamWriter fout = new OutputStreamWriter(new FileOutputStream(file, false));
+                fout.write(informe.toString());
+                fout.flush();
+                fout.close();
+            }catch (Exception e){}
+        }
     }
 
     private void buscarXMLs(File f) {
@@ -220,10 +243,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         //Si no hay un nodo de tipo path y nodeName que se le pasan saltamos al siguiente de la lista
-        listaFicheros.remove(0);
-        if (listaFicheros.size()>0){
-            transformarXML(listaFicheros.get(0));
-        }
+        informe.append("    No hay attr de enlace: "+nodeName+"\n");
+        p.recorreDOM("");
+        p.writeXML();
+        transformarXMLs();
     }
 
     private void getFileFromURL(String url){
@@ -238,20 +261,16 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(int i, cz.msebera.android.httpclient.Header[] headers, byte[] bytes) {
                 String XML = new String(bytes);
                 XML = XML.trim();
-
                 p.recorreDOM(XML);
-                txtFileXML.setText(p.writeXML());
-
-                txtFileXMLSalida.setText(txtFileXMLSalida.getText().toString()+listaFicheros.get(0)+"\n");
-
-                listaFicheros.remove(0);
-                if (listaFicheros.size()>0){
-                    transformarXML(listaFicheros.get(0));
-                }
+                p.writeXML();
+                informe.append("    OK\n");
+                transformarXMLs();
             }
             @Override
             public void onFailure(int i, cz.msebera.android.httpclient.Header[] headers, byte[] bytes, Throwable throwable) {
                 Toast.makeText(getApplicationContext(), "Error en la conexión", Toast.LENGTH_LONG);
+                informe.append("    Error en la conexión\n");
+                transformarXMLs();
             }
         });
     }

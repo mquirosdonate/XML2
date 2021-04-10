@@ -42,7 +42,7 @@ public class ParseXML {
         //Normalizar la Estructura del XML
         //documento.getDocumentElement().normalize();
     }
-    String VALOR_ATTR,VALOR1,VALOR2,VALOR3;
+    String VALOR_ATTR="",VALOR1="",VALOR2="",VALOR3="";
     private void recorreNodosHijos(Node node)  {
         mBlancos += 2;
         int blancos = mBlancos;
@@ -50,8 +50,7 @@ public class ParseXML {
         for (int i = 0; i < listaDeNodos.getLength(); i++) {
             Node nodo = listaDeNodos.item(i);
             if (nodo.getNodeType() != Node.ELEMENT_NODE) continue;
-            if (r.eliminaNodo(nodo))
-                continue;
+            if (r.eliminaNodo(nodo)) continue;
             boolean tieneHijos = tieneHijosTipoElementNode(nodo);
              xml.append(tabulación(blancos));
              String TAG = getTAGyAtributos(nodo);
@@ -62,13 +61,13 @@ public class ParseXML {
                      .replace("\"","&quot;")
                      .replace("\'","&apos;");
              //////////////////////////////////////
-            if (TAG.compareTo("AccessConstraints")==0)
+            if (!VALOR1.isEmpty() && TAG.compareTo("AccessConstraints")==0)
                 texto = VALOR1;
 
-             if (TAG.compareTo("Identifier")==0)
+             if (!VALOR2.isEmpty() && TAG.compareTo("Identifier")==0)
                  texto = VALOR2;
 
-            if (TAG.compareTo("Fees")==0)
+            if (!VALOR3.isEmpty() && TAG.compareTo("Fees")==0)
                 texto = VALOR3;
             //////////////////////////////////////
              if (tieneHijos)  recorreNodosHijos(nodo);
@@ -98,10 +97,10 @@ public class ParseXML {
                         valorAtributo.compareTo("http://www.esri.com/wms") == 0)
                     continue;
 
-                if (TAG.compareTo("AuthorityURL")==0  && nombreAtributo.compareTo("name")==0){
+                if (!VALOR_ATTR.isEmpty() && TAG.compareTo("AuthorityURL")==0  && nombreAtributo.compareTo("name")==0){
                     valorAtributo = VALOR_ATTR;
                 }
-                if (TAG.compareTo("Identifier")==0  && nombreAtributo.compareTo("authority")==0){
+                if (!VALOR_ATTR.isEmpty() && TAG.compareTo("Identifier")==0  && nombreAtributo.compareTo("authority")==0){
                     valorAtributo = VALOR_ATTR;
                 }
                 //////////////////////////////////////////
