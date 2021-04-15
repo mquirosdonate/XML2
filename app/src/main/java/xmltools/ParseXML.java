@@ -103,6 +103,14 @@ public class ParseXML {
                 if (!VALOR_ATTR.isEmpty() && TAG.compareTo("Identifier")==0  && nombreAtributo.compareTo("authority")==0){
                     valorAtributo = VALOR_ATTR;
                 }
+                if (mFileXML.contains("Agua") || mFileXML.contains("Biodiversidad") ||
+                        mFileXML.contains("EvaluacionAmbiental") ||  mFileXML.contains("Costas")) {
+                    String mi_path = getPathDelNodo(nodo);
+                    if ( mi_path .contains("WMS_Capabilities/Capability/Layer/Layer/Attribution/OnlineResource") && nombreAtributo.compareTo("xlink:href")==0){
+                        valorAtributo = "https://www.miteco.gob.es/es/";
+                    }
+                }
+
                 //////////////////////////////////////////
                 xml.append(" " +nombreAtributo+ "=\"" + valorAtributo+"\"");
             }
@@ -192,7 +200,7 @@ public class ParseXML {
             "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b" ,
             "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1c" ,
             "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d" ,
-            "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d" ,
+            "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1e" ,
             "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1f" ,
             "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1g" ,
             "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1h"};
