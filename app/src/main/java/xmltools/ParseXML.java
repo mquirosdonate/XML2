@@ -268,7 +268,7 @@ public class ParseXML {
     public String getXML(){
         return xml.toString();
     }
-    public  String writeXML(){
+    public  String writeXML(boolean sobrescribir){
         String salida = xml.toString().
                 replace("AM.FloodUnitOfManagement.Default.Polygon","AM.FloodUnitOfManagement.Default").
                 replace("AM.FloodUnitOfManagement.Default.Line","AM.FloodUnitOfManagement.Default").
@@ -337,7 +337,8 @@ public class ParseXML {
             File file = new File(mFileXML);
             path = file.getParent();
             nameFile = file.getName();
-            nameFile = "_" + nameFile;
+            if (!sobrescribir)
+                nameFile = "_" + nameFile;
             file = new File(path,nameFile);
             fout = new OutputStreamWriter(new FileOutputStream(file, false));
             fout.write(salida);

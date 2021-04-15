@@ -14,6 +14,12 @@
             android:background="@color/colorAccent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <CheckBox
+            android:id="@+id/checkBoxSobrescribir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sobrescribir" />
     </TableRow>
     <TableRow android:layout_marginTop="2dp">
         <TextView

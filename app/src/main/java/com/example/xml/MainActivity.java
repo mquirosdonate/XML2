@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtFileXML;
     private EditText txtFileXMLSalida;
     private Button buscarXML;
+    private CheckBox sobrescribir;
     private File sdDir;
     List<String> listaFicheros = new ArrayList<>();
     static  StringBuilder informe = new StringBuilder();
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         if(!checkAndRequestPermissions())
             return;
 
+        sobrescribir = findViewById(R.id.checkBoxSobrescribir);
         txtFileXML = findViewById(R.id.fileXML);
         txtFileXMLSalida = findViewById(R.id.fileXMLSalida);
         buscarXML = findViewById(R.id.BuscarXML);
@@ -245,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
         //Si no hay un nodo de tipo path y nodeName que se le pasan saltamos al siguiente de la lista
         informe.append("    No hay attr de enlace: "+nodeName+"\n");
         p.recorreDOM("");
-        p.writeXML();
+        p.writeXML(sobrescribir.isChecked());
         transformarXMLs();
     }
 
@@ -262,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
                 String XML = new String(bytes);
                 XML = XML.trim();
                 p.recorreDOM(XML);
-                p.writeXML();
+                p.writeXML(sobrescribir.isChecked());
                 informe.append("    OK\n");
                 transformarXMLs();
             }
